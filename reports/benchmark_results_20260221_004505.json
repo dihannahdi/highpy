@@ -1,0 +1,283 @@
+{
+  "timestamp": "20260221_004505",
+  "python_version": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "win32",
+  "results": [
+    {
+      "name": "function_call_overhead",
+      "category": "micro",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 3386800,
+        "median_ns": 5346800,
+        "mean_ns": 5457464,
+        "p95_ns": 6540700,
+        "p99_ns": 6831000,
+        "stddev_ns": 651751.6312842129
+      },
+      "optimized_stats": {
+        "min_ns": 1962100,
+        "median_ns": 2039500,
+        "mean_ns": 2268006,
+        "p95_ns": 3162000,
+        "p99_ns": 3406700,
+        "stddev_ns": 413725.7054511121
+      },
+      "speedup": 2.616533228547571
+    },
+    {
+      "name": "attribute_access",
+      "category": "micro",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 7883600,
+        "median_ns": 9103000,
+        "mean_ns": 9264914,
+        "p95_ns": 11123600,
+        "p99_ns": 11163500,
+        "stddev_ns": 1068079.5168384216
+      },
+      "optimized_stats": {
+        "min_ns": 6478600,
+        "median_ns": 7194500,
+        "mean_ns": 7368322,
+        "p95_ns": 9072700,
+        "p99_ns": 9689200,
+        "stddev_ns": 830178.2754914508
+      },
+      "speedup": 1.262239342506901
+    },
+    {
+      "name": "type_dispatch",
+      "category": "micro",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 5166400,
+        "median_ns": 5321100,
+        "mean_ns": 5552016,
+        "p95_ns": 6722700,
+        "p99_ns": 7160600,
+        "stddev_ns": 484715.2348776021
+      },
+      "optimized_stats": {
+        "min_ns": 5148800,
+        "median_ns": 5456400,
+        "mean_ns": 5854622,
+        "p95_ns": 7098300,
+        "p99_ns": 7557700,
+        "stddev_ns": 708095.1242709743
+      },
+      "speedup": 0.9763459225182043
+    },
+    {
+      "name": "global_lookup",
+      "category": "micro",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 1227700,
+        "median_ns": 1313600,
+        "mean_ns": 1388538,
+        "p95_ns": 1766200,
+        "p99_ns": 2151300,
+        "stddev_ns": 206514.60480052826
+      },
+      "optimized_stats": {
+        "min_ns": 1176000,
+        "median_ns": 1589100,
+        "mean_ns": 1526178,
+        "p95_ns": 1727500,
+        "p99_ns": 1728400,
+        "stddev_ns": 160933.60944494966
+      },
+      "speedup": 0.8278470595682724
+    },
+    {
+      "name": "fibonacci_iter",
+      "category": "meso",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 2054300,
+        "median_ns": 2541900,
+        "mean_ns": 2601574,
+        "p95_ns": 3321000,
+        "p99_ns": 3454700,
+        "stddev_ns": 375185.82487582753
+      },
+      "optimized_stats": {
+        "min_ns": 2070100,
+        "median_ns": 2327200,
+        "mean_ns": 2493644,
+        "p95_ns": 3415500,
+        "p99_ns": 5687700,
+        "stddev_ns": 595794.6366365663
+      },
+      "speedup": 1.1079111576558887
+    },
+    {
+      "name": "sum_of_squares",
+      "category": "meso",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 8577000,
+        "median_ns": 10368400,
+        "mean_ns": 10369578,
+        "p95_ns": 12382700,
+        "p99_ns": 13115400,
+        "stddev_ns": 1208652.2565490971
+      },
+      "optimized_stats": {
+        "min_ns": 8291400,
+        "median_ns": 8705300,
+        "mean_ns": 9284078,
+        "p95_ns": 11904700,
+        "p99_ns": 12013800,
+        "stddev_ns": 1187939.3072330707
+      },
+      "speedup": 1.190623167913922
+    },
+    {
+      "name": "dot_product",
+      "category": "meso",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 2353100,
+        "median_ns": 2405200,
+        "mean_ns": 2501162,
+        "p95_ns": 3082800,
+        "p99_ns": 3173300,
+        "stddev_ns": 196587.34247252074
+      },
+      "optimized_stats": {
+        "min_ns": 2368300,
+        "median_ns": 2411300,
+        "mean_ns": 2473810,
+        "p95_ns": 2584000,
+        "p99_ns": 4718300,
+        "stddev_ns": 329076.8629586314
+      },
+      "speedup": 0.9970347330222914
+    },
+    {
+      "name": "prime_sieve",
+      "category": "meso",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 636900,
+        "median_ns": 770400,
+        "mean_ns": 755682,
+        "p95_ns": 986300,
+        "p99_ns": 1038200,
+        "stddev_ns": 106822.03527553743
+      },
+      "optimized_stats": {
+        "min_ns": 646800,
+        "median_ns": 696200,
+        "mean_ns": 758934,
+        "p95_ns": 849000,
+        "p99_ns": 3189600,
+        "stddev_ns": 354920.7549436859
+      },
+      "speedup": 1.1045023014959723
+    },
+    {
+      "name": "numerical_integration",
+      "category": "meso",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 14447500,
+        "median_ns": 17954000,
+        "mean_ns": 17727922,
+        "p95_ns": 20765700,
+        "p99_ns": 21305400,
+        "stddev_ns": 1743055.8147057688
+      },
+      "optimized_stats": {
+        "min_ns": 7554900,
+        "median_ns": 17303900,
+        "mean_ns": 16968504,
+        "p95_ns": 21630700,
+        "p99_ns": 22492400,
+        "stddev_ns": 3190928.7275765766
+      },
+      "speedup": 1.0438781386945604
+    },
+    {
+      "name": "monte_carlo_pi",
+      "category": "macro",
+      "correct": false,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 22881600,
+        "median_ns": 25144600,
+        "mean_ns": 25963594,
+        "p95_ns": 30511500,
+        "p99_ns": 30921900,
+        "stddev_ns": 2908776.0557692177
+      },
+      "optimized_stats": {
+        "min_ns": 12631900,
+        "median_ns": 26843000,
+        "mean_ns": 26240118,
+        "p95_ns": 30997800,
+        "p99_ns": 32583800,
+        "stddev_ns": 4222891.133281432
+      },
+      "speedup": 0.9290746864619222
+    },
+    {
+      "name": "mandelbrot",
+      "category": "macro",
+      "correct": false,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 4530000,
+        "median_ns": 4597600,
+        "mean_ns": 4611542,
+        "p95_ns": 4720200,
+        "p99_ns": 4725500,
+        "stddev_ns": 49809.19139013175
+      },
+      "optimized_stats": {
+        "min_ns": 433800,
+        "median_ns": 483100,
+        "mean_ns": 522188,
+        "p95_ns": 687500,
+        "p99_ns": 745800,
+        "stddev_ns": 88893.57691265737
+      },
+      "speedup": 9.529131246112378
+    },
+    {
+      "name": "data_pipeline",
+      "category": "macro",
+      "correct": true,
+      "error": null,
+      "baseline_stats": {
+        "min_ns": 29483700,
+        "median_ns": 46934400,
+        "mean_ns": 46091482,
+        "p95_ns": 52902200,
+        "p99_ns": 55192700,
+        "stddev_ns": 4882820.99872479
+      },
+      "optimized_stats": {
+        "min_ns": 34304500,
+        "median_ns": 34548200,
+        "mean_ns": 35344496,
+        "p95_ns": 41279400,
+        "p99_ns": 44270800,
+        "stddev_ns": 2098796.860104301
+      },
+      "speedup": 1.3545034040385329
+    }
+  ]
+}

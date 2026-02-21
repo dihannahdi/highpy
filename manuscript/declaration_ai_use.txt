@@ -1,0 +1,3 @@
+Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
+
+During the preparation of this work the author used GitHub Copilot (Claude) in order to assist with code implementation, debugging, and manuscript drafting. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the published article.

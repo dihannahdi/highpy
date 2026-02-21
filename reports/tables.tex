@@ -1,0 +1,53 @@
+% HighPy Benchmark Results - LaTeX Tables
+% Generated: 2026-02-21 00:45:46
+
+% --- MACRO ---
+\begin{table}[htbp]
+\caption{Macro Benchmark Results}
+\label{tab:macro_results}
+\centering
+\begin{tabular}{lrrrc}
+\toprule
+Benchmark & Baseline & Optimized & Speedup & Correct \\
+\midrule
+monte\_carlo\_pi & 25.14\,ms & 26.84\,ms & 0.94$\times$ & \xmark \\
+mandelbrot & 4.60\,ms & 483.1\,\mu s & 9.52$\times$ & \xmark \\
+data\_pipeline & 46.93\,ms & 34.55\,ms & 1.36$\times$ & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --- MESO ---
+\begin{table}[htbp]
+\caption{Meso Benchmark Results}
+\label{tab:meso_results}
+\centering
+\begin{tabular}{lrrrc}
+\toprule
+Benchmark & Baseline & Optimized & Speedup & Correct \\
+\midrule
+fibonacci\_iter & 2.54\,ms & 2.33\,ms & 1.09$\times$ & \checkmark \\
+sum\_of\_squares & 10.37\,ms & 8.71\,ms & 1.19$\times$ & \checkmark \\
+dot\_product & 2.41\,ms & 2.41\,ms & 1.00$\times$ & \checkmark \\
+prime\_sieve & 770.4\,\mu s & 696.2\,\mu s & 1.11$\times$ & \checkmark \\
+numerical\_integration & 17.95\,ms & 17.30\,ms & 1.04$\times$ & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --- MICRO ---
+\begin{table}[htbp]
+\caption{Micro Benchmark Results}
+\label{tab:micro_results}
+\centering
+\begin{tabular}{lrrrc}
+\toprule
+Benchmark & Baseline & Optimized & Speedup & Correct \\
+\midrule
+function\_call\_overhead & 5.35\,ms & 2.04\,ms & 2.62$\times$ & \checkmark \\
+attribute\_access & 9.10\,ms & 7.19\,ms & 1.27$\times$ & \checkmark \\
+type\_dispatch & 5.32\,ms & 5.46\,ms & 0.98$\times$ & \checkmark \\
+global\_lookup & 1.31\,ms & 1.59\,ms & 0.83$\times$ & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
