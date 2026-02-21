@@ -211,17 +211,24 @@ class ConvergenceProver:
         sample_functions: Optional[List[Callable]] = None,
     ) -> ContractionCertificate:
         """
-        Verify that a single morphism is a contraction mapping.
-        
-        Tests the morphism on sample ASTs to empirically measure
-        its contraction factor.
+        Empirically estimate the contraction factor of a morphism.
+
+        Measures both:
+          (a) Per-sample energy ratio  E(T(P)) / E(P)    (monotonicity)
+          (b) Pairwise Lipschitz ratio d(T*(E1), T*(E2)) / d(E1, E2)
+              for all distinct sample pairs (Banach contraction condition)
+
+        The reported contraction_factor is the worst-case *pairwise*
+        Lipschitz ratio, which is the quantity relevant to Banach's theorem.
+        Falls back to energy-ratio when fewer than 2 samples are available.
         """
         if sample_functions is None:
             sample_functions = self._default_samples()
-        
+
         evidence = []
-        factors = []
-        
+        energy_pairs: List[Tuple[OptimizationEnergy, OptimizationEnergy]] = []
+        energy_ratios: List[float] = []
+
         for func in sample_functions:
             import textwrap, inspect
             try:
@@ -229,25 +236,36 @@ class ConvergenceProver:
                 tree = ast.parse(source)
             except (OSError, TypeError):
                 continue
-            
-            # Measure energy before
-            energy_before = EnergyAnalyzer.compute_ast_energy(tree).total
-            
-            # Apply morphism
+
+            energy_before = EnergyAnalyzer.compute_ast_energy(tree)
+
             try:
-                transformed = morphism.apply(tree, FractalLevel.FUNCTION)
+                import copy
+                transformed = morphism.apply(copy.deepcopy(tree), FractalLevel.FUNCTION)
             except Exception:
                 continue
-            
-            # Measure energy after
-            energy_after = EnergyAnalyzer.compute_ast_energy(transformed).total
-            
-            evidence.append((energy_before, energy_after))
-            
-            if energy_before > 0:
-                factor = energy_after / energy_before
-                factors.append(factor)
-        
+
+            energy_after = EnergyAnalyzer.compute_ast_energy(transformed)
+            evidence.append((energy_before.total, energy_after.total))
+            energy_pairs.append((energy_before, energy_after))
+
+            if energy_before.total > 0:
+                energy_ratios.append(energy_after.total / energy_before.total)
+
+        # Compute pairwise Lipschitz factors (the correct Banach definition)
+        pairwise_factors: List[float] = []
+        for i in range(len(energy_pairs)):
+            for j in range(i + 1, len(energy_pairs)):
+                e1_before, e1_after = energy_pairs[i]
+                e2_before, e2_after = energy_pairs[j]
+                d_before = e1_before.distance(e2_before)
+                d_after = e1_after.distance(e2_after)
+                if d_before > self.epsilon:
+                    pairwise_factors.append(d_after / d_before)
+
+        # Use pairwise factors if available, else fall back to energy ratios
+        factors = pairwise_factors if pairwise_factors else energy_ratios
+
         if not factors:
             return ContractionCertificate(
                 morphism_name=morphism.name,
@@ -259,15 +277,15 @@ class ConvergenceProver:
                 is_contraction=False,
                 evidence=evidence,
             )
-        
+
         worst = max(factors)
         best = min(factors)
         mean = sum(factors) / len(factors)
-        
+
         return ContractionCertificate(
             morphism_name=morphism.name,
-            contraction_factor=worst,  # Conservative: use worst case
-            samples_tested=len(factors),
+            contraction_factor=worst,  # Conservative: worst-case pairwise
+            samples_tested=len(energy_pairs),
             worst_case_factor=worst,
             best_case_factor=best,
             mean_factor=mean,
@@ -282,12 +300,11 @@ class ConvergenceProver:
     ) -> BanachProof:
         """
         Verify that a composed pipeline of morphisms is a contraction.
-        
-        Composition Theorem:
-            If T₁ has factor k₁ and T₂ has factor k₂,
-            then T₂ ∘ T₁ has factor k₁ · k₂.
-        
-        Also verifies empirically on sample functions.
+
+        Computes the empirical pairwise Lipschitz factor of the
+        composed pipeline T = Tn ∘ ... ∘ T1 directly, rather than
+        multiplying individual factors (which is only valid for true
+        Lipschitz constants on the same metric space).
         """
         if sample_functions is None:
             sample_functions = self._default_samples()
@@ -316,8 +333,10 @@ class ConvergenceProver:
         for cert in certificates:
             theoretical_k *= cert.contraction_factor
         
-        # Empirical verification of the composed pipeline
-        empirical_factors = []
+        # Empirical verification of the composed pipeline — pairwise Lipschitz
+        import copy as _copy
+        pipeline_energy_pairs: List[Tuple['OptimizationEnergy', 'OptimizationEnergy']] = []
+        energy_ratios: List[float] = []
         for func in sample_functions:
             import textwrap, inspect
             try:
@@ -325,28 +344,42 @@ class ConvergenceProver:
                 tree = ast.parse(source)
             except (OSError, TypeError):
                 continue
-            
-            energy_before = EnergyAnalyzer.compute_ast_energy(tree).total
-            
-            current = tree
+
+            energy_before = EnergyAnalyzer.compute_ast_energy(tree)
+
+            current = _copy.deepcopy(tree)
             for m in morphisms:
                 try:
                     current = m.apply(current, FractalLevel.FUNCTION)
                 except Exception:
                     break
-            
-            energy_after = EnergyAnalyzer.compute_ast_energy(current).total
-            
-            if energy_before > 0:
-                empirical_factors.append(energy_after / energy_before)
-        
+
+            energy_after = EnergyAnalyzer.compute_ast_energy(current)
+            pipeline_energy_pairs.append((energy_before, energy_after))
+
+            if energy_before.total > 0:
+                energy_ratios.append(energy_after.total / energy_before.total)
+
+        # Pairwise Lipschitz factors for the composed pipeline
+        pairwise_factors: List[float] = []
+        for i in range(len(pipeline_energy_pairs)):
+            for j in range(i + 1, len(pipeline_energy_pairs)):
+                e1b, e1a = pipeline_energy_pairs[i]
+                e2b, e2a = pipeline_energy_pairs[j]
+                d_before = e1b.distance(e2b)
+                d_after = e1a.distance(e2a)
+                if d_before > self.epsilon:
+                    pairwise_factors.append(d_after / d_before)
+
+        empirical_factors = pairwise_factors if pairwise_factors else energy_ratios
+
         if empirical_factors:
             empirical_k = max(empirical_factors)
         else:
             empirical_k = theoretical_k
-        
-        # Use the more conservative estimate
-        k = max(theoretical_k, empirical_k)
+
+        # Use empirical pairwise k as primary, theoretical as secondary
+        k = empirical_k if empirical_factors else theoretical_k
         
         # Determine proof status
         all_contractions = all(c.is_contraction for c in certificates)

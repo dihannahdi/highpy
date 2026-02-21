@@ -90,8 +90,15 @@ class PurityReport:
 
     @property
     def is_memoizable(self) -> bool:
-        """Whether automatic memoization is safe for this function."""
-        return self.level <= PurityLevel.LOCALLY_IMPURE
+        """Whether automatic memoization is safe for this function.
+
+        LOCALLY_IMPURE functions are only safe to memoize if they do not
+        return newly constructed mutable objects (list, set, dict), because
+        memoization would cause all callers to share the same mutable
+        reference — an aliasing bug.  We conservatively require PURE or
+        READ_ONLY for guaranteed safety.
+        """
+        return self.level in (PurityLevel.PURE, PurityLevel.READ_ONLY)
 
     @property
     def confidence(self) -> float:

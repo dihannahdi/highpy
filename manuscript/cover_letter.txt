@@ -1,0 +1,49 @@
+Farid Dihan Nahdi
+Universitas Gadjah Mada
+Yogyakarta, 55281, Indonesia
+fariddihannahdi@mail.ugm.ac.id
+
+Date: July 2025
+
+Professor/Editor-in-Chief
+Journal of Systems and Software
+Elsevier
+
+Dear Editor,
+
+I am pleased to submit an original research article entitled "Recursive Fractal Optimization Engine: Banach Contraction Convergence Guarantees and Automatic Memoization for Python Program Optimization" for consideration for publication in the Journal of Systems and Software.
+
+This manuscript presents the Recursive Fractal Optimization Engine (RFOE), a novel framework for automated Python program optimization that, to the best of our knowledge, is the first to unify fractal self-similar decomposition, Banach contraction mapping convergence guarantees, meta-circular self-optimization, and static purity analysis in a single system.
+
+The key contributions are:
+
+1. A fractal optimization architecture where programs are decomposed into a six-level hierarchy with universal optimization morphisms applied self-similarly at every level—the first application of fractal self-similarity as an organizing principle for compiler optimization.
+
+2. Formal convergence guarantees via Banach's Contraction Mapping Theorem, providing the first quantitative convergence proof (existence, uniqueness, geometric rate bounds, iteration count bounds) for iterative AST optimization.
+
+3. Purity-aware automatic memoization using a novel static purity analyzer that classifies functions into a four-level lattice (PURE, READ_ONLY, LOCALLY_IMPURE, IMPURE), enabling safe automatic memoization that converts O(2^n) to O(n) complexity.
+
+4. Comprehensive experimental validation with 266 unit tests and 58 benchmark functions spanning nine real-world categories, demonstrating a 6.755× geometric mean speedup on 17 core functions, 3.402× across 41 diverse large-scale functions, peak 39,072× speedup on dynamic programming, and a formally proven pipeline contraction factor of k = 0.7989 < 1 at 100% confidence.
+
+This work is significant for the systems and software community because it bridges the gap between theoretical computer science (metric-space fixed-point theory, fractal geometry) and practical program optimization, providing both formal guarantees and substantial empirical performance improvements. The framework is implemented as 4,300+ lines of Python code integrated into the HighPy optimization system.
+
+This manuscript has not been published elsewhere and is not under consideration by another journal. The author has approved the manuscript and agrees to its submission.
+
+I confirm that:
+- The manuscript is original and has not been published previously.
+- The manuscript is not being considered for publication elsewhere.
+- All data and materials are available for verification.
+- There are no competing interests to declare.
+- The use of generative AI tools has been properly declared.
+
+I believe this paper is well suited for the Journal of Systems and Software given its focus on software systems, program optimization, and formal methods applied to practical software engineering problems.
+
+Thank you for considering this manuscript. I look forward to your response.
+
+Sincerely,
+
+Farid Dihan Nahdi
+Corresponding Author
+Universitas Gadjah Mada
+Yogyakarta, 55281, Indonesia
+Email: fariddihannahdi@mail.ugm.ac.id

@@ -377,23 +377,25 @@ To address the limitation of benchmarking only small functions, we evaluate RFOE
 \centering
 \caption{Large-scale benchmark: geometric mean speedup per category (41 functions, all correct).}
 \label{tab:largescale}
-\begin{tabular}{llrr}
+{\small
+\begin{tabular}{@{}lp{5.8cm}rr@{}}
 \toprule
 \textbf{Category} & \textbf{Functions} & \textbf{Geo.\ Mean} & \textbf{Peak} \\
 \midrule
 A. Sorting              & quicksort, mergesort, insertion, heapsort   &   0.68$\times$ & 1.14$\times$ \\
 B. Graph Algorithms     & DFS, shortest path, components, topo-sort   &   0.76$\times$ & 1.03$\times$ \\
-C. Dynamic Programming  & LCS, edit distance, coin change, matrix chain, Catalan & 557.3$\times$ & 39{,}072$\times$ \\
+C. Dynamic Prog.        & LCS, edit dist., coin change, matrix chain, Catalan & 557.3$\times$ & 39{,}072$\times$ \\
 D. String Processing    & palindrome, vowels, RLE, longest palindrome, word freq &   1.18$\times$ & 2.37$\times$ \\
 E. Numerical            & matrix mult, determinant, Newton sqrt, trapezoidal, fast power &   1.09$\times$ & 2.93$\times$ \\
 F. Data Processing      & moving avg, normalize, group-by, flatten, histogram &   0.88$\times$ & 1.55$\times$ \\
 G. Tree Operations      & depth, flatten, count, search              &   0.37$\times$ & 0.49$\times$ \\
 H. Combinatorial        & Catalan, partitions, derangements, Stirling, Bell &  135.3$\times$ & 7{,}868$\times$ \\
-I. Real-World Patterns  & CSV parse, email validation, JSON path, Levenshtein &   1.02$\times$ & 1.09$\times$ \\
+I. Real-World            & CSV parse, email valid., JSON path, Levenshtein &   1.02$\times$ & 1.09$\times$ \\
 \midrule
-\multicolumn{2}{l}{\textbf{Overall geometric mean}} & \textbf{3.402$\times$} & \textbf{39{,}072$\times$} \\
+\multicolumn{2}{@{}l}{\textbf{Overall geometric mean}} & \textbf{3.402$\times$} & \textbf{39{,}072$\times$} \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 The large-scale results reveal a clear pattern: RFOE achieves dramatic speedups (100--39{,}000$\times$) on recursive/dynamic programming functions amenable to automatic memoization, moderate improvements (1.0--2.9$\times$) on compute-bound code with optimization opportunities, and slight slowdowns on functions where AST transformation overhead exceeds gains (e.g., recursive tree traversals with function call overhead from memoization wrappers). The overall geometric mean of 3.402$\times$ across 41~diverse functions---including impure functions, complex data structures, and I/O patterns---demonstrates RFOE's robustness beyond idealized benchmarks.

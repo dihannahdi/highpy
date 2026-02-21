@@ -1,0 +1,25 @@
+Title Page
+
+Title:
+Recursive Fractal Optimization Engine: Banach Contraction Convergence Guarantees and Automatic Memoization for Python Program Optimization
+
+Author:
+Farid Dihan Nahdi (Corresponding Author)
+
+Affiliation:
+Universitas Gadjah Mada
+Yogyakarta, 55281
+Indonesia
+
+Email:
+fariddihannahdi@mail.ugm.ac.id
+
+ORCID:
+[To be added]
+
+Corresponding Author Contact:
+Farid Dihan Nahdi
+Universitas Gadjah Mada
+Yogyakarta, 55281, Indonesia
+Tel: [To be added]
+Email: fariddihannahdi@mail.ugm.ac.id

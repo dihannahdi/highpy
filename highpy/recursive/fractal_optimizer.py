@@ -162,12 +162,16 @@ class OptimizationEnergy:
         )
     
     def distance(self, other: 'OptimizationEnergy') -> float:
-        """Metric distance between two energy states."""
+        """Weighted Euclidean distance, consistent with the total energy metric.
+
+        Uses the same weight vector w = (1.0, 1.5, 2.0, 1.8) so that
+        the distance and the scalar total induce the same topology.
+        """
         return math.sqrt(
-            (self.instruction_complexity - other.instruction_complexity) ** 2 +
-            (self.memory_pressure - other.memory_pressure) ** 2 +
-            (self.branch_cost - other.branch_cost) ** 2 +
-            (self.abstraction_overhead - other.abstraction_overhead) ** 2
+            self.W_INSTRUCTION * (self.instruction_complexity - other.instruction_complexity) ** 2 +
+            self.W_MEMORY * (self.memory_pressure - other.memory_pressure) ** 2 +
+            self.W_BRANCH * (self.branch_cost - other.branch_cost) ** 2 +
+            self.W_ABSTRACTION * (self.abstraction_overhead - other.abstraction_overhead) ** 2
         )
     
     def __sub__(self, other: 'OptimizationEnergy') -> 'OptimizationEnergy':
@@ -225,7 +229,8 @@ _CALL_OPS = {
     'CALL', 'CALL_FUNCTION_EX', 'CALL_KW',
 }
 _ABSTRACTION_OPS = {
-    'LOAD_ATTR', 'LOAD_METHOD', 'LOAD_GLOBAL', 'BINARY_SUBSCR',
+    # NOTE: LOAD_ATTR is already counted in _MEMORY_OPS — do NOT duplicate here.
+    'LOAD_METHOD', 'BINARY_SUBSCR',
     'STORE_SUBSCR', 'DELETE_SUBSCR', 'IMPORT_NAME', 'IMPORT_FROM',
 }
 

@@ -1,0 +1,5 @@
+Biography
+
+Farid Dihan Nahdi
+
+Farid Dihan Nahdi is a researcher at Universitas Gadjah Mada, Yogyakarta, Indonesia. His research interests include program optimization, compiler design, formal methods, and applied mathematics in software engineering. He is the developer of the HighPy Python optimization framework and the Recursive Fractal Optimization Engine (RFOE), which applies fractal geometry and Banach contraction mapping theory to automated program transformation. His work focuses on bridging theoretical computer science with practical software performance improvement.
