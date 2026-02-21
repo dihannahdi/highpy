@@ -841,12 +841,20 @@ class BytecodeComplexityAnalyzer:
         """Detect if function calls itself recursively."""
         func_name = code.co_name
         
+        # Include PRECALL which only exists in Python 3.11; it appears
+        # between argument preparation and CALL, so recognising it as a
+        # call-related opcode lets the look-ahead succeed on 3.11.
+        call_indicators = CALL_OPS | {'PRECALL'}
+        
         for i, instr in enumerate(instructions):
             if instr.opname in ('LOAD_GLOBAL', 'LOAD_DEREF', 'LOAD_NAME'):
                 if instr.argval == func_name:
-                    # Check if followed by a CALL
-                    for j in range(i + 1, min(i + 5, len(instructions))):
-                        if instructions[j].opname in CALL_OPS:
+                    # Check if followed by a CALL within a reasonable window.
+                    # The window must be wide enough to span argument-
+                    # preparation bytecodes plus version-specific opcodes
+                    # like PRECALL (Python 3.11).
+                    for j in range(i + 1, min(i + 10, len(instructions))):
+                        if instructions[j].opname in call_indicators:
                             return True
         
         return False
